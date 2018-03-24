@@ -1,7 +1,21 @@
 FROM alpine:latest
 MAINTAINER b3vis
 #Install Borg & SSH
-RUN apk add openssh sshfs borgbackup supervisor --no-cache
+RUN apk upgrade --no-cache \
+    && apk add --no-cache \
+    openssh sshfs borgbackup supervisor \
+    alpine-sdk \
+    tzdata \
+    sshfs \
+    python3 \
+    python3-dev \
+    openssl-dev \
+    lz4-dev \
+    acl-dev \
+    linux-headers && \
+    pip3 install --upgrade pip \
+    && pip3 install --upgrade borgbackup \
+    && rm -rf /var/cache/apk/*
 RUN adduser -D -u 1000 borg && \
     ssh-keygen -A && \
     mkdir /backups && \
