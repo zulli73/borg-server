@@ -16,7 +16,7 @@ RUN apk upgrade --no-cache \
     pip3 install --upgrade pip \
     && pip3 install --upgrade borgbackup \
     && rm -rf /var/cache/apk/*
-RUN adduser -D -u 1000 borg && \
+RUN adduser -D -u 1000 borg -s '' && \
     ssh-keygen -A && \
     mkdir /backups && \
     chown borg.borg /backups && \
